@@ -20,6 +20,10 @@ public class Customer {
 	private int salesRepEmployeeNumber;
 	private double creditLimit;
 
+	/**
+	 * This method is for getting customerNumber.
+	 * @return
+	 */
 	public int getCustomerNumber() {
 		return customerNumber;
 	}
