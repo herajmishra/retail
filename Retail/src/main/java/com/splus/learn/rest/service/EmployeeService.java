@@ -27,10 +27,9 @@ public class EmployeeService {
 		return response;
 	}
 
-	public ApiResponse employeeShow() throws SQLException {
+	public ApiResponse employeeShow(Employee employee) throws SQLException {
 		EmployeeDao employeeDao = new EmployeeDao();
 		Connection con = employeeDao.connect();
-		Employee employee=new Employee();
 		List<Employee> employees = employeeDao.employeeShow(employee,con);
 
 		ApiResponse response=new ApiResponse();

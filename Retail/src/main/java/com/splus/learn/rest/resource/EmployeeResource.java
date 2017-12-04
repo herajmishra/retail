@@ -16,12 +16,13 @@ import com.splus.learn.rest.service.EmployeeService;
 
 @Path("/employee")
 public class EmployeeResource {
-	@GET
+	@POST
 	@Path("/findall")
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getEmployee() throws SQLException {
+	public Response getEmployee(Employee employee) throws SQLException {
 		EmployeeService showService = new EmployeeService();
-		ApiResponse response = showService.employeeShow();
+		ApiResponse response = showService.employeeShow(employee);
 		return Response.status(200).entity(response).build();
 
 	}
