@@ -2,6 +2,7 @@ package com.splus.learn.rest.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import com.splus.learn.rest.beans.ApiResponse;
 import com.splus.learn.rest.beans.Product;
@@ -28,17 +29,18 @@ public class ProductService {
 
 	public ApiResponse productShow(Product product) throws SQLException {
 		ProductDao productDao = new ProductDao();
-		product = productDao.productShow(product);
+		Connection con = productDao.connect();
+		List<Product> products =  productDao.productShow(product, con);
 		ApiResponse response = new ApiResponse();
-		if (product.getProductCode() != null) {
+		if(products!=null) {
 			response.setCode(Status.SUCCESS.status());
 			response.setMessage(Status.SUCCESS.description());
-		} else {
+		}else {
 			response.setCode(Status.FAILED.status());
 			response.setMessage(Status.FAILED.description());
 		}
-		productDao.commitAndCloseConnection();
-		response.setResult(product);
+		productDao.closeConnection();
+		response.setResult(products);
 		return response;
 	}
 }
