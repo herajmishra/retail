@@ -1,5 +1,10 @@
 package com.splus.learn.rest.beans;
 
+/**
+ * This class is for Product bean. 
+ * @author Nazish.Khatoon
+ *
+ */
 public class Product {
 	private String productCode;
 	private String productName;
