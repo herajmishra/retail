@@ -9,7 +9,21 @@ import com.splus.learn.rest.beans.Office;
 import com.splus.learn.rest.dao.OfficeDao;
 import com.splus.learn.rest.enums.Status;
 
+/**
+ * This is service class for Office
+ * 
+ * @author Rishabh Goel
+ *
+ */
 public class OfficeService {
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when finding by officeCode
+	 * 
+	 * @param office
+	 * @return response
+	 * @throws SQLException
+	 */
 	public ApiResponse officeByCode(Office office) throws SQLException {
 		OfficeDao officeDao = new OfficeDao();
 		Connection con = officeDao.connect();
@@ -28,10 +42,18 @@ public class OfficeService {
 		return response;
 	}
 
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when finding all offices
+	 * 
+	 * @param office
+	 * @return response
+	 * @throws SQLException
+	 */
 	public ApiResponse officeShow(Office office) throws SQLException {
 		OfficeDao officeDao = new OfficeDao();
 		Connection con = officeDao.connect();
-		List<Office> offices = officeDao.officeShow(office,con);
+		List<Office> offices = officeDao.officeShow(office, con);
 		ApiResponse response = new ApiResponse();
 		if (offices != null) {
 			response.setCode(Status.SUCCESS.status());

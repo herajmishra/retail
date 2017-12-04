@@ -13,9 +13,21 @@ import com.splus.learn.rest.beans.ApiResponse;
 import com.splus.learn.rest.beans.Office;
 import com.splus.learn.rest.service.OfficeService;
 
+/**
+ * This is resource class for Office
+ * 
+ * @author Rishabh Goel
+ *
+ */
 @Path("/office")
 public class OfficeResource {
-
+	/**
+	 * This method returns all the offices present in the database
+	 * 
+	 * @param office
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findall")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -27,6 +39,14 @@ public class OfficeResource {
 
 	}
 
+	/**
+	 * This method returns office details whose officeCode matches with the one
+	 * present in the database
+	 * 
+	 * @param office
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findid")
 	@Consumes({ MediaType.APPLICATION_JSON })

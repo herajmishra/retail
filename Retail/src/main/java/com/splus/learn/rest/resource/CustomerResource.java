@@ -13,9 +13,21 @@ import com.splus.learn.rest.beans.ApiResponse;
 import com.splus.learn.rest.beans.Customer;
 import com.splus.learn.rest.service.CustomerService;
 
+/**
+ * This is resource class for Customer
+ * 
+ * @author Rishabh Goel
+ *
+ */
 @Path("/customer")
 public class CustomerResource {
-
+	/**
+	 * This method returns all the customers present in the database
+	 * 
+	 * @param customer
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findall")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -27,6 +39,14 @@ public class CustomerResource {
 
 	}
 
+	/**
+	 * This method returns customer details whose customerNumber matches with the
+	 * one present in the database
+	 * 
+	 * @param customer
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findid")
 	@Consumes({ MediaType.APPLICATION_JSON })

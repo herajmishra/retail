@@ -9,9 +9,23 @@ import java.util.List;
 
 import com.splus.learn.rest.beans.Customer;
 
+/**
+ * This is Dao class for Customer
+ * 
+ * @author Rishabh Goel
+ *
+ */
 public class CustomerDao extends AbstractDao {
-	
-	public Customer customerById(Customer customer,Connection con) throws SQLException {
+	/**
+	 * This method is for selecting all the details from the database where passed
+	 * customerNumber matches with the customer_number in the table
+	 * 
+	 * @param customer
+	 * @param con
+	 * @return Customer
+	 * @throws SQLException
+	 */
+	public Customer customerById(Customer customer, Connection con) throws SQLException {
 		Statement stmt = con.createStatement();
 		int customerNumber = customer.getCustomerNumber();
 		String query = "select customer_number,customer_name,contact_lastname,contact_firstname,phone,address_line1,address_line2,city,state,postal_code,country,sales_repemployeenumber,credit_limit "
@@ -32,13 +46,20 @@ public class CustomerDao extends AbstractDao {
 			customer.setSalesRepEmployeeNumber(rs.getInt("sales_repemployeenumber"));
 			customer.setCreditLimit(rs.getDouble("credit_limit"));
 		}
-		
 
 		return customer;
 	}
 
-	public List<Customer> customerShow(Customer customer1,Connection con) throws SQLException {
-		
+	/**
+	 * This method selects all the data in the table customers
+	 * 
+	 * @param customer1
+	 * @param con
+	 * @return List<Customer>
+	 * @throws SQLException
+	 */
+	public List<Customer> customerShow(Customer customer1, Connection con) throws SQLException {
+
 		Statement stmt = con.createStatement();
 		String query = "select customer_number,customer_name,contact_lastname,contact_firstname,phone,address_line1,address_line2,city,state,postal_code,country,sales_repemployeenumber,credit_limit from customers";
 		List<Customer> customers = new ArrayList<Customer>();
