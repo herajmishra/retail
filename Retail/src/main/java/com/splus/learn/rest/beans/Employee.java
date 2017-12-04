@@ -1,5 +1,10 @@
 package com.splus.learn.rest.beans;
 
+/**
+ * This class is for Customer bean. 
+ * @author Heraj.Mishra
+ *
+ */
 public class Employee {
 	private int employeeNumber;
 	private String lastName;
