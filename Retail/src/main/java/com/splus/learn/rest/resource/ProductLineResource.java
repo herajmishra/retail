@@ -14,7 +14,21 @@ import com.splus.learn.rest.beans.ProductLine;
 import com.splus.learn.rest.service.ProductLineService;
 
 @Path("/productline")
+/**
+ * This is the class for ProductLine Resource
+ * 
+ * @author Nazish.Khatoon
+ *
+ */
 public class ProductLineResource {
+	/**
+	 * This method returns the Api Response for all the ProductLines in the
+	 * database.
+	 * 
+	 * @param productLine
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findall")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -26,6 +40,14 @@ public class ProductLineResource {
 
 	}
 
+	/**
+	 * This method returns the Api Response for the productLine where passed
+	 * ProductLine id matches the ProductLine id in the database.
+	 * 
+	 * @param productLine
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findid")
 	@Consumes({ MediaType.APPLICATION_JSON })

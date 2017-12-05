@@ -9,7 +9,23 @@ import java.util.List;
 
 import com.splus.learn.rest.beans.Product;
 
+/**
+ * This class is for Product Dao
+ * 
+ * @author Nazish.Khatoon
+ *
+ */
+
 public class ProductDao extends AbstractDao {
+	/**
+	 * This method is for selecting all the details from the database where passed
+	 * productCode matches with the product_code in the table
+	 * 
+	 * @param product
+	 * @param con
+	 * @return product
+	 * @throws SQLException
+	 */
 
 	public Product productByCode(Product product, Connection con) throws SQLException {
 
@@ -17,6 +33,7 @@ public class ProductDao extends AbstractDao {
 		String productCode = product.getProductCode();
 		String query = "select product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp "
 				+ "from products where product_code='" + productCode + "'";
+
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
 			product.setProductCode(rs.getString("product_code"));
@@ -33,6 +50,14 @@ public class ProductDao extends AbstractDao {
 		return product;
 	}
 
+	/**
+	 * This method shows all the fields for the Products from the database
+	 * 
+	 * @param product1
+	 * @param con
+	 * @return List<Product>
+	 * @throws SQLException
+	 */
 	public List<Product> productShow(Product product1, Connection con) throws SQLException {
 		Statement stmt = con.createStatement();
 		String query = "select product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp "

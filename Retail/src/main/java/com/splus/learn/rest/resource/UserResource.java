@@ -15,9 +15,20 @@ import com.splus.learn.rest.beans.ApiResponse;
 import com.splus.learn.rest.beans.User;
 import com.splus.learn.rest.service.UserService;
 
+/**
+ * This class is for User resource
+ * 
+ * @author Nazish.Khatoon
+ *
+ */
+
 @Path("/user")
 public class UserResource {
-
+	/**
+	 * 
+	 * @param msg
+	 * @return
+	 */
 	@GET
 	@Path("/{param}")
 	public Response getMsg(@PathParam("param") String msg) {
@@ -28,6 +39,12 @@ public class UserResource {
 
 	}
 
+	/**
+	 * 
+	 * @param user
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/login")
 	@Consumes({ MediaType.APPLICATION_JSON })

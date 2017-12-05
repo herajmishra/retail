@@ -12,9 +12,20 @@ import javax.ws.rs.core.Response;
 import com.splus.learn.rest.beans.ApiResponse;
 import com.splus.learn.rest.beans.Product;
 import com.splus.learn.rest.service.ProductService;
+
 @Path("/product")
-public class ProductResource 
-{
+/**
+ * This is the class for Product Resource
+ * @author Nazish.Khatoon
+ *
+ */
+public class ProductResource {
+	/**
+	 * This method returns the Api Response for all the products in the database.
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findall")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -25,7 +36,12 @@ public class ProductResource
 		return Response.status(200).entity(response).build();
 
 	}
-
+/**
+ * This method returns the Api Response for the product where passed Product code matches the Product code in the database.
+ * @param product
+ * @return response
+ * @throws SQLException
+ */
 	@POST
 	@Path("/findid")
 	@Consumes({ MediaType.APPLICATION_JSON })
