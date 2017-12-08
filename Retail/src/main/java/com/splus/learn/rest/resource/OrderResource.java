@@ -10,21 +10,21 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.splus.learn.rest.beans.ApiResponse;
-import com.splus.learn.rest.beans.Office;
-import com.splus.learn.rest.service.OfficeService;
+import com.splus.learn.rest.beans.Order;
+import com.splus.learn.rest.service.OrderService;
 
 /**
- * This is resource class for Office
+ * This is resource class for Order
  * 
- * @author Rishabh Goel
+ * @author Rishabh.Goel
  *
  */
-@Path("/office")
-public class OfficeResource {
+@Path("/order")
+public class OrderResource {
 	/**
-	 * This method returns all the offices present in the database
+	 * This method returns all the orders present in the database
 	 * 
-	 * @param office
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
@@ -32,18 +32,18 @@ public class OfficeResource {
 	@Path("/findall")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response getOffice(Office office) throws SQLException {
-		OfficeService showService = new OfficeService();
-		ApiResponse response = showService.officeShow(office);
+	public Response getOrder(Order order) throws SQLException {
+		OrderService showService = new OrderService();
+		ApiResponse response = showService.orderShow(order);
 		return Response.status(200).entity(response).build();
 
 	}
 
 	/**
-	 * This method returns office details whose officeCode matches with the one
+	 * This method returns customer details whose orderNumber matches with the one
 	 * present in the database
 	 * 
-	 * @param office
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
@@ -51,17 +51,17 @@ public class OfficeResource {
 	@Path("/findid")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response findById(Office office) throws SQLException {
-		OfficeService showService = new OfficeService();
-		ApiResponse response = showService.officeByCode(office);
+	public Response findById(Order order) throws SQLException {
+		OrderService showService = new OrderService();
+		ApiResponse response = showService.orderById(order);
 		return Response.status(200).entity(response).build();
 
 	}
 
 	/**
-	 * This method inserts a new office record in the database
+	 * This method insert a new order in the database
 	 * 
-	 * @param office
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
@@ -69,17 +69,17 @@ public class OfficeResource {
 	@Path("/save")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response save(Office office) throws SQLException {
-		OfficeService showService = new OfficeService();
-		ApiResponse response = showService.saveOffice(office);
+	public Response save(Order order) throws SQLException {
+		OrderService showService = new OrderService();
+		ApiResponse response = showService.saveOrder(order);
 		return Response.status(200).entity(response).build();
 
 	}
 
 	/**
-	 * This method updates the data for a particular officeCode in office database
+	 * This method updates the data for a orderNumber
 	 * 
-	 * @param office
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
@@ -87,18 +87,18 @@ public class OfficeResource {
 	@Path("/update")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response update(Office office) throws SQLException {
-		OfficeService showService = new OfficeService();
-		ApiResponse response = showService.updateOffice(office);
+	public Response update(Order order) throws SQLException {
+		OrderService showService = new OrderService();
+		ApiResponse response = showService.updateOrder(order);
 		return Response.status(200).entity(response).build();
 
 	}
 
 	/**
-	 * This method logically delete's an entry from the office database matching
-	 * with the officeCode
+	 * This method logically delete's an entry from the order database matching with
+	 * the orderNumber
 	 * 
-	 * @param office
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
@@ -106,9 +106,9 @@ public class OfficeResource {
 	@Path("/delete")
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
-	public Response delete(Office office) throws SQLException {
-		OfficeService showService = new OfficeService();
-		ApiResponse response = showService.deleteOffice(office);
+	public Response delete(Order order) throws SQLException {
+		OrderService showService = new OrderService();
+		ApiResponse response = showService.deleteOrder(order);
 		return Response.status(200).entity(response).build();
 
 	}

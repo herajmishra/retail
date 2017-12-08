@@ -5,105 +5,79 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.splus.learn.rest.beans.ApiResponse;
-import com.splus.learn.rest.beans.Employee;
-import com.splus.learn.rest.dao.EmployeeDao;
+import com.splus.learn.rest.beans.Order;
+import com.splus.learn.rest.dao.OrderDao;
 import com.splus.learn.rest.enums.Status;
 
 /**
- * This is service class for Employee
+ * This is service class for Order
  * 
- * @author Rishabh Goel
+ * @author Rishabh.Goel
  *
  */
-public class EmployeeService {
+public class OrderService {
 	/**
 	 * This method sets the ApiResponse according to success of failure of the query
-	 * when finding by employeeNumber
+	 * when finding by orderNumber
 	 * 
-	 * @param office
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
-	public ApiResponse employeeById(Employee employee) throws SQLException {
-		EmployeeDao employeeDao = new EmployeeDao();
-		Connection con = employeeDao.connect();
-		employee = employeeDao.employeeById(employee, con);
+	public ApiResponse orderShow(Order order) throws SQLException {
+		OrderDao orderDao = new OrderDao();
+		Connection con = orderDao.connect();
+		List<Order> orders = orderDao.orderShow(order, con);
 		ApiResponse response = new ApiResponse();
-		if (employee.getEmployeeNumber() > 0) {
+		if (orders != null) {
 			response.setCode(Status.SUCCESS.status());
 			response.setMessage(Status.SUCCESS.description());
 		} else {
 			response.setCode(Status.FAILED.status());
 			response.setMessage(Status.FAILED.description());
 		}
-		employeeDao.commitAndCloseConnection();
-		response.setResult(employee);
+		orderDao.closeConnection();
+		response.setResult(orders);
 		return response;
 	}
 
 	/**
 	 * This method sets the ApiResponse according to success of failure of the query
-	 * when finding all employees
+	 * when finding all order
 	 * 
-	 * @param office
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
-	public ApiResponse employeeShow(Employee employee) throws SQLException {
-		EmployeeDao employeeDao = new EmployeeDao();
-		Connection con = employeeDao.connect();
-		List<Employee> employees = employeeDao.employeeShow(employee, con);
-
+	public ApiResponse orderById(Order order) throws SQLException {
+		OrderDao orderDao = new OrderDao();
+		Connection con = orderDao.connect();
+		order = orderDao.orderById(order, con);
 		ApiResponse response = new ApiResponse();
-		if (employees != null) {
+		if (order.getOrderNumber() > 0) {
 			response.setCode(Status.SUCCESS.status());
 			response.setMessage(Status.SUCCESS.description());
 		} else {
 			response.setCode(Status.FAILED.status());
 			response.setMessage(Status.FAILED.description());
 		}
-		employeeDao.closeConnection();
-		response.setResult(employees);
+		orderDao.commitAndCloseConnection();
+		response.setResult(order);
 		return response;
 	}
 
 	/**
 	 * This method sets the ApiResponse according to success of failure of the query
-	 * when inserting a employee
+	 * when inserting a order
 	 * 
-	 * @param employee
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
-	public ApiResponse saveEmployee(Employee employee) throws SQLException {
-		EmployeeDao employeeDao = new EmployeeDao();
-		Connection con = employeeDao.connect();
-		int rs = employeeDao.saveEmployee(employee, con);
-		ApiResponse response = new ApiResponse();
-		if (rs == 1) {
-			response.setCode(Status.SUCCESS.status());
-			response.setMessage(Status.SUCCESS.description());
-		} else {
-			response.setCode(Status.FAILED.status());
-			response.setMessage(Status.FAILED.description());
-		}
-		employeeDao.commitAndCloseConnection();
-		response.setResult(employee);
-		return response;
-	}
-
-	/**
-	 * This method sets the ApiResponse according to success of failure of the query
-	 * when updating a employee
-	 * 
-	 * @param employee
-	 * @return response
-	 * @throws SQLException
-	 */
-	public ApiResponse updateEmployee(Employee employee) throws SQLException {
-		EmployeeDao employeeDao = new EmployeeDao();
-		Connection con = employeeDao.connect();
-		int rs = employeeDao.updateEmployee(employee, con);
+	public ApiResponse saveOrder(Order order) throws SQLException {
+		OrderDao orderDao = new OrderDao();
+		Connection con = orderDao.connect();
+		int rs = orderDao.saveOrder(order, con);
 		ApiResponse response = new ApiResponse();
 		if (rs == 1) {
 			response.setCode(Status.SUCCESS.status());
@@ -112,23 +86,23 @@ public class EmployeeService {
 			response.setCode(Status.FAILED.status());
 			response.setMessage(Status.FAILED.description());
 		}
-		employeeDao.commitAndCloseConnection();
-		response.setResult(employee);
+		orderDao.commitAndCloseConnection();
+		response.setResult(order);
 		return response;
 	}
 
 	/**
 	 * This method sets the ApiResponse according to success of failure of the query
-	 * when deleting a employee
+	 * when updating a order
 	 * 
-	 * @param employee
+	 * @param order
 	 * @return response
 	 * @throws SQLException
 	 */
-	public ApiResponse deleteEmployee(Employee employee) throws SQLException {
-		EmployeeDao employeeDao = new EmployeeDao();
-		Connection con = employeeDao.connect();
-		int rs = employeeDao.deleteEmployee(employee, con);
+	public ApiResponse updateOrder(Order order) throws SQLException {
+		OrderDao orderDao = new OrderDao();
+		Connection con = orderDao.connect();
+		int rs = orderDao.updateOrder(order, con);
 		ApiResponse response = new ApiResponse();
 		if (rs == 1) {
 			response.setCode(Status.SUCCESS.status());
@@ -137,8 +111,34 @@ public class EmployeeService {
 			response.setCode(Status.FAILED.status());
 			response.setMessage(Status.FAILED.description());
 		}
-		employeeDao.commitAndCloseConnection();
-		response.setResult(employee);
+		orderDao.commitAndCloseConnection();
+		response.setResult(order);
 		return response;
 	}
+
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when deleting a order
+	 * 
+	 * @param order
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse deleteOrder(Order order) throws SQLException {
+		OrderDao orderDao = new OrderDao();
+		Connection con = orderDao.connect();
+		int rs = orderDao.deleteOrder(order, con);
+		ApiResponse response = new ApiResponse();
+		if (rs == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		orderDao.commitAndCloseConnection();
+		response.setResult(order);
+		return response;
+	}
+
 }

@@ -55,4 +55,59 @@ public class UserResource {
 		return Response.status(200).entity(response).build();
 
 	}
+
+	/**
+	 * This method insert a new user in the database
+	 * 
+	 * @param user
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/save")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response save(User user) throws SQLException {
+		UserService showService = new UserService();
+		ApiResponse response = showService.saveUser(user);
+		return Response.status(200).entity(response).build();
+
+	}
+
+	/**
+	 * This method updates the data for a userId
+	 * 
+	 * @param user
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/update")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response update(User user) throws SQLException {
+		UserService showService = new UserService();
+		ApiResponse response = showService.updateUser(user);
+		return Response.status(200).entity(response).build();
+
+	}
+
+	/**
+	 * This method logically delete's an entry from the user database matching with
+	 * the userId
+	 * 
+	 * @param user
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/delete")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response delete(User user) throws SQLException {
+		UserService showService = new UserService();
+		ApiResponse response = showService.deleteUser(user);
+		return Response.status(200).entity(response).build();
+
+	}
 }
