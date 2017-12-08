@@ -57,4 +57,60 @@ public class EmployeeResource {
 		return Response.status(200).entity(response).build();
 
 	}
+
+	/**
+	 * This method insert a new employee in the database
+	 * 
+	 * @param employee
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/save")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response save(Employee employee) throws SQLException {
+		EmployeeService showService = new EmployeeService();
+		ApiResponse response = showService.saveEmployee(employee);
+		return Response.status(200).entity(response).build();
+
+	}
+
+	/**
+	 * This method updates the data for a employeeNumber
+	 * 
+	 * @param employee
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/update")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response update(Employee employee) throws SQLException {
+		EmployeeService showService = new EmployeeService();
+		ApiResponse response = showService.updateEmployee(employee);
+		return Response.status(200).entity(response).build();
+
+	}
+
+	/**
+	 * This method logically delete's an entry from the employee database matching
+	 * with the employeeNumber
+	 * 
+	 * @param employee
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/delete")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response delete(Employee employee) throws SQLException {
+		EmployeeService showService = new EmployeeService();
+		ApiResponse response = showService.deleteEmployee(employee);
+		return Response.status(200).entity(response).build();
+
+	}
+
 }

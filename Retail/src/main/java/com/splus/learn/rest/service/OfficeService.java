@@ -66,4 +66,79 @@ public class OfficeService {
 		response.setResult(offices);
 		return response;
 	}
+
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when inserting a office
+	 * 
+	 * @param office
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse saveOffice(Office office) throws SQLException {
+		OfficeDao officeDao = new OfficeDao();
+		Connection con = officeDao.connect();
+		int rs = officeDao.saveOffice(office, con);
+		ApiResponse response = new ApiResponse();
+		if (rs == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		officeDao.commitAndCloseConnection();
+		response.setResult(office);
+		return response;
+	}
+
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when updating a office
+	 * 
+	 * @param office
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse updateOffice(Office office) throws SQLException {
+		OfficeDao officeDao = new OfficeDao();
+		Connection con = officeDao.connect();
+		int rs = officeDao.updateOffice(office, con);
+		ApiResponse response = new ApiResponse();
+		if (rs == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		officeDao.commitAndCloseConnection();
+		response.setResult(office);
+		return response;
+	}
+
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when deleting a office
+	 * 
+	 * @param office
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse deleteOffice(Office office) throws SQLException {
+		OfficeDao officeDao = new OfficeDao();
+		Connection con = officeDao.connect();
+		int rs = officeDao.deleteOffice(office, con);
+		ApiResponse response = new ApiResponse();
+		if (rs == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		officeDao.commitAndCloseConnection();
+		response.setResult(office);
+		return response;
+	}
 }

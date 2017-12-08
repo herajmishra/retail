@@ -65,4 +65,79 @@ public class CustomerService {
 		response.setResult(customers);
 		return response;
 	}
+
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when inserting a customer
+	 * 
+	 * @param customer
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse saveCustomer(Customer customer) throws SQLException {
+		CustomerDao customerDao = new CustomerDao();
+		Connection con = customerDao.connect();
+		int rs = customerDao.saveCustomer(customer, con);
+		ApiResponse response = new ApiResponse();
+		if (rs == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		customerDao.commitAndCloseConnection();
+		response.setResult(customer);
+		return response;
+	}
+
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when updating a customer
+	 * 
+	 * @param customer
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse updateCustomer(Customer customer) throws SQLException {
+		CustomerDao customerDao = new CustomerDao();
+		Connection con = customerDao.connect();
+		int rs = customerDao.updateCustomer(customer, con);
+		ApiResponse response = new ApiResponse();
+		if (rs == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		customerDao.commitAndCloseConnection();
+		response.setResult(customer);
+		return response;
+	}
+
+	/**
+	 * This method sets the ApiResponse according to success of failure of the query
+	 * when deleting a customer
+	 * 
+	 * @param customer
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse deleteCustomer(Customer customer) throws SQLException {
+		CustomerDao customerDao = new CustomerDao();
+		Connection con = customerDao.connect();
+		int rs = customerDao.deleteCustomer(customer, con);
+		ApiResponse response = new ApiResponse();
+		if (rs == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		customerDao.commitAndCloseConnection();
+		response.setResult(customer);
+		return response;
+	}
 }
