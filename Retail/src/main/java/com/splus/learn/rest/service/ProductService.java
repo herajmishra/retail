@@ -65,4 +65,80 @@ public class ProductService {
 		response.setResult(products);
 		return response;
 	}
+
+	/**
+	 * This method returns the status and description whether the product is
+	 * successfully inserted or not.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+
+	public ApiResponse save(Product product) throws SQLException {
+		ProductDao productDao = new ProductDao();
+		Connection con = productDao.connect();
+		int i = productDao.save(product, con);
+		ApiResponse response = new ApiResponse();
+		if (i == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		productDao.commitAndCloseConnection();
+		response.setResult(product);
+		return response;
+	}
+
+	/**
+	 * This method returns the status and description for the product whether the
+	 * record_status is changed to 0 or not.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse delete(Product product) throws SQLException {
+		ProductDao productDao = new ProductDao();
+		Connection con = productDao.connect();
+		int i = productDao.delete(product, con);
+		ApiResponse response = new ApiResponse();
+		if (i == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		productDao.commitAndCloseConnection();
+		response.setResult(product);
+		return response;
+	}
+
+	/**
+	 * This method returns the status and description whether the existing product
+	 * is successfully updated or not.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+	public ApiResponse update(Product product) throws SQLException {
+		ProductDao productDao = new ProductDao();
+		Connection con = productDao.connect();
+		int i = productDao.update(product, con);
+		ApiResponse response = new ApiResponse();
+		if (i == 1) {
+			response.setCode(Status.SUCCESS.status());
+			response.setMessage(Status.SUCCESS.description());
+		} else {
+			response.setCode(Status.FAILED.status());
+			response.setMessage(Status.FAILED.description());
+		}
+		productDao.commitAndCloseConnection();
+		response.setResult(product);
+		return response;
+	}
 }

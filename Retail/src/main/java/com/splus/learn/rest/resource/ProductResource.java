@@ -16,12 +16,14 @@ import com.splus.learn.rest.service.ProductService;
 @Path("/product")
 /**
  * This is the class for Product Resource
+ * 
  * @author Nazish.Khatoon
  *
  */
 public class ProductResource {
 	/**
 	 * This method returns the Api Response for all the products in the database.
+	 * 
 	 * @param product
 	 * @return response
 	 * @throws SQLException
@@ -36,12 +38,15 @@ public class ProductResource {
 		return Response.status(200).entity(response).build();
 
 	}
-/**
- * This method returns the Api Response for the product where passed Product code matches the Product code in the database.
- * @param product
- * @return response
- * @throws SQLException
- */
+
+	/**
+	 * This method returns the Api Response for the product where passed productCode
+	 * matches with the product_code in the database.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
 	@POST
 	@Path("/findid")
 	@Consumes({ MediaType.APPLICATION_JSON })
@@ -53,4 +58,60 @@ public class ProductResource {
 
 	}
 
+	/**
+	 * This method returns the Api response for the inserted product.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+
+	@POST
+	@Path("/save")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response save(Product product) throws SQLException {
+		ProductService productService = new ProductService();
+		ApiResponse response = productService.save(product);
+		return Response.status(200).entity(response).build();
+	}
+
+	/**
+	 * This method returns the Api response for the product where passed productCode
+	 * matches with the product_code and record_status is greater than 0.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/delete")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response delete(Product product) throws SQLException {
+		ProductService productService = new ProductService();
+		ApiResponse response = productService.delete(product);
+		return Response.status(200).entity(response).build();
+
+	}
+
+	/**
+	 * This method returns the Api response for the updated product where passed
+	 * productCode matches with the product_code in the table and record_status is
+	 * greater than 0.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/update")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response update(Product product) throws SQLException {
+		ProductService productService = new ProductService();
+		ApiResponse response = productService.update(product);
+		return Response.status(200).entity(response).build();
+
+	}
 }

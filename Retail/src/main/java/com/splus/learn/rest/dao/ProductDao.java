@@ -1,6 +1,7 @@
 package com.splus.learn.rest.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -32,7 +33,7 @@ public class ProductDao extends AbstractDao {
 		Statement stmt = con.createStatement();
 		String productCode = product.getProductCode();
 		String query = "select product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp "
-				+ "from products where product_code='" + productCode + "'";
+				+ "from products where product_code='" + productCode + "'AND record_status>0";
 
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
@@ -81,4 +82,81 @@ public class ProductDao extends AbstractDao {
 
 		return products;
 	}
+
+	/**
+	 * This method is for inserting a new record in the database
+	 * 
+	 * @param product
+	 * @param con
+	 * @return rs
+	 * @throws SQLException
+	 */
+	public int save(Product product, Connection con) throws SQLException {
+
+		PreparedStatement ps = con.prepareStatement(
+				"insert into products(product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp,created_by,created_at,lastmodified_by,lastmodified_at,record_status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,1)");
+
+		ps.setString(1, product.getProductCode());
+		ps.setString(2, product.getProductName());
+		ps.setString(3, product.getProductLine());
+		ps.setString(4, product.getProductScale());
+		ps.setString(5, product.getProductVendor());
+		ps.setString(6, product.getProductDescription());
+		ps.setInt(7, product.getQuantityInStock());
+		ps.setDouble(8, product.getBuyPrice());
+		ps.setDouble(9, product.getMsrp());
+		int rs = ps.executeUpdate();
+		return rs;
+	}
+
+	/**
+	 * This method is for updating the record_status value in the database where
+	 * passed productCode matches with the product_code and record_status is greater
+	 * than 0.
+	 * 
+	 * @param product
+	 * @param con
+	 * @return rs
+	 * @throws SQLException
+	 */
+	public int delete(Product product, Connection con) throws SQLException {
+
+		PreparedStatement ps = con.prepareStatement(
+				"update products set lastmodified_by = ?,lastmodified_at=NOW(),record_status=0 where product_code = ? AND record_status>0");
+		ps.setString(1, product.getProductName());
+		ps.setString(2, product.getProductCode());
+		int rs = ps.executeUpdate();
+		return rs;
+	}
+
+	/**
+	 * This method updates the record where passed productCode matches with the
+	 * product_code in the table and record_status is greater than 0.
+	 * 
+	 * @param product
+	 * @param con
+	 * @return rs
+	 * @throws SQLException
+	 */
+	public int update(Product product, Connection con) throws SQLException {
+
+		PreparedStatement ps = con.prepareStatement(
+				"update products set product_name = ?,product_line = ?,product_scale = ?,product_vendor = ?,product_description = ?,quantity_instock = ?,buy_price = ?,msrp = ?,lastmodified_by=?,lastmodified_at=NOW() where product_code=? AND record_status>0");
+
+		ps.setString(1, product.getProductName());
+		ps.setString(2, product.getProductLine());
+		ps.setString(3, product.getProductScale());
+		ps.setString(4, product.getProductVendor());
+		ps.setString(5, product.getProductDescription());
+		ps.setInt(6, product.getQuantityInStock());
+		ps.setDouble(7, product.getBuyPrice());
+		ps.setDouble(8, product.getMsrp());
+		ps.setString(9, product.getProductCode());
+		ps.setString(10, product.getProductCode());
+		int rs = ps.executeUpdate();
+
+		return rs;
+
+	}
+
 }
