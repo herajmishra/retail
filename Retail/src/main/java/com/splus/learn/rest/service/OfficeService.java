@@ -8,7 +8,11 @@ import com.splus.learn.rest.beans.ApiResponse;
 import com.splus.learn.rest.beans.Office;
 import com.splus.learn.rest.dao.OfficeDao;
 import com.splus.learn.rest.enums.Status;
-
+/**
+ * This is the class for Office Service
+ * @author Nazish.Khatoon
+ *
+ */
 public class OfficeService {
 	public ApiResponse officeByCode(Office office) throws SQLException {
 		OfficeDao officeDao = new OfficeDao();

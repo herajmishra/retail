@@ -8,8 +8,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.splus.learn.rest.beans.Office;
-
+/**
+ * This is the class for Office Dao
+ * @author Nazish.Khatoon
+ *
+ */
 public class OfficeDao extends AbstractDao {
+	/**
+	 *  This method is for selecting all the details from the database where passed officeCode matches with the office_code in the table
+	 * @param office
+	 * @param con
+	 * @return office
+	 * @throws SQLException
+	 */
 	
 	public Office officeByCode(Office office,Connection con) throws SQLException {
 		Statement stmt = con.createStatement();
@@ -31,7 +42,13 @@ public class OfficeDao extends AbstractDao {
 		
 		return office;
 	}
-
+/**
+ * This method shows all the fields for the Offices from the database
+ * @param office1
+ * @param con
+ * @return List<Office>
+ * @throws SQLException
+ */
 	public List<Office> officeShow(Office office1,Connection con) throws SQLException {
 		Statement stmt = con.createStatement();
 		String query = "select office_code,city,phone,address_line1,address_line2,state,country,postal_code,territory from offices";
