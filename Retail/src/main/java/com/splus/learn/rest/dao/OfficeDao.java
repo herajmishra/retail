@@ -29,7 +29,7 @@ public class OfficeDao extends AbstractDao {
 		Statement stmt = con.createStatement();
 		String officeCode = office.getOfficeCode();
 		String query = "select office_code,city,phone,address_line1,address_line2,state,country,postal_code,territory "
-				+ "from offices where office_code= '" + officeCode + "'";
+				+ "from offices where office_code= '" + officeCode + "'AND record_status>0";
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
 			office.setOfficeCode(rs.getString("office_code"));
@@ -55,7 +55,7 @@ public class OfficeDao extends AbstractDao {
  */
 	public List<Office> officeShow(Office office1,Connection con) throws SQLException {
 		Statement stmt = con.createStatement();
-		String query = "select office_code,city,phone,address_line1,address_line2,state,country,postal_code,territory from offices";
+		String query = "select office_code,city,phone,address_line1,address_line2,state,country,postal_code,territory from offices where record_status>0";
 		List<Office> offices = new ArrayList<Office>();
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {

@@ -30,7 +30,7 @@ public class CustomerDao extends AbstractDao {
 		Statement stmt = con.createStatement();
 		int customerNumber = customer.getCustomerNumber();
 		String query = "select customer_number,customer_name,contact_lastname,contact_firstname,phone,address_line1,address_line2,city,state,postal_code,country,sales_repemployeenumber,credit_limit "
-				+ "from customers where customer_number= '" + customerNumber + "'";
+				+ "from customers where customer_number= '" + customerNumber + "'AND record_status>0";
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
 			customer.setCustomerNumber(rs.getInt("customer_number"));
@@ -62,7 +62,7 @@ public class CustomerDao extends AbstractDao {
 	public List<Customer> customerShow(Customer customer1, Connection con) throws SQLException {
 
 		Statement stmt = con.createStatement();
-		String query = "select customer_number,customer_name,contact_lastname,contact_firstname,phone,address_line1,address_line2,city,state,postal_code,country,sales_repemployeenumber,credit_limit from customers";
+		String query = "select customer_number,customer_name,contact_lastname,contact_firstname,phone,address_line1,address_line2,city,state,postal_code,country,sales_repemployeenumber,credit_limit from customers where record_status>0";
 		List<Customer> customers = new ArrayList<Customer>();
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {

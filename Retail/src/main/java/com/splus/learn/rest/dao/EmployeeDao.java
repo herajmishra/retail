@@ -31,7 +31,7 @@ public class EmployeeDao extends AbstractDao {
 		Statement stmt = con.createStatement();
 		int employeeNumber = employee.getEmployeeNumber();
 		String query = "select employee_number,last_name,first_name,extension,email,office_code,reports_to,job_title "
-				+ "from employees where employee_number= '" + employeeNumber + "'";
+				+ "from employees where employee_number= '" + employeeNumber + "'AND record_status>0";
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
 			employee.setEmployeeNumber(rs.getInt("employee_number"));
@@ -59,7 +59,7 @@ public class EmployeeDao extends AbstractDao {
 	public List<Employee> employeeShow(Employee employee1, Connection con) throws SQLException {
 
 		Statement stmt = con.createStatement();
-		String query = "select employee_number,last_name,first_name,extension,email,office_code,reports_to,job_title from employees";
+		String query = "select employee_number,last_name,first_name,extension,email,office_code,reports_to,job_title from employees where record_status>0";
 		ResultSet rs = stmt.executeQuery(query);
 		List<Employee> employees = new ArrayList<Employee>();
 		while (rs.next()) {
