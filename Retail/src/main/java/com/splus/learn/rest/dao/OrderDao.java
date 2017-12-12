@@ -30,7 +30,7 @@ public class OrderDao extends AbstractDao {
 		Statement stmt = con.createStatement();
 		String query = "select orders.order_number,orders.order_date,orders.required_date,orders.shipped_date,orders.order_status,orders.comments,orders.customer_number"
 				+ ",orderdetails.order_number,orderdetails.product_code,orderdetails.quantity_ordered,orderdetails.price_each,orderdetails.order_linenumber "
-				+ "from orders inner join orderdetails on orders.order_number=orderdetails.order_number";
+				+ "from orders inner join orderdetails on orders.order_number=orderdetails.order_number AND orders.record_status>0 AND orderdetails.record_status>0";
 		List<Order> orders = new ArrayList<Order>();
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {

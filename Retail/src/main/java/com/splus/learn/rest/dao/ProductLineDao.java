@@ -34,7 +34,7 @@ public class ProductLineDao extends AbstractDao {
 		Statement stmt = con.createStatement();
 		String productlineid = productLine.getProductLine();
 		String query = "select product_line,text_description,html_description,image from productlines where product_line= '"
-				+ productlineid + "'";
+				+ productlineid + "'And record_status>0";
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
 			productLine.setProductLine(rs.getString("product_line"));
@@ -59,7 +59,7 @@ public class ProductLineDao extends AbstractDao {
 	public List<ProductLine> productLineShow(ProductLine productLine1, Connection con) throws SQLException {
 
 		Statement stmt = con.createStatement();
-		String query = "select product_line,text_description,html_description,image from productlines";
+		String query = "select product_line,text_description,html_description,image from productlines where record_status>0";
 		List<ProductLine> productLines = new ArrayList<ProductLine>();
 		ResultSet rs = stmt.executeQuery(query);
 		while (rs.next()) {
@@ -86,13 +86,13 @@ public class ProductLineDao extends AbstractDao {
 	public ProductLine productLineInsert(ProductLine productLine, Connection con) throws SQLException {
 
 		PreparedStatement ps = con.prepareStatement(
-				"insert into productlines(product_line,text_description,html_description,image,record_status) values (?,?,?,?,1)");
+				"insert into productlines(product_line,text_description,html_description,image,created_by,created_at,record_status) values (?,?,?,?,?,NOW(),1)");
 
 		ps.setString(1, productLine.getProductLine());
 		ps.setString(2, productLine.getTextDescription());
 		ps.setString(3, productLine.getHtmlDescription());
 		ps.setBytes(4, productLine.getImage());
-
+		ps.setString(5, productLine.getProductLine());
 		ps.executeUpdate();
 
 		return productLine;

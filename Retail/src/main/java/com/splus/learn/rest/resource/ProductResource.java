@@ -1,5 +1,6 @@
 package com.splus.learn.rest.resource;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.ws.rs.Consumes;
@@ -111,6 +112,42 @@ public class ProductResource {
 	public Response update(Product product) throws SQLException {
 		ProductService productService = new ProductService();
 		ApiResponse response = productService.update(product);
+		return Response.status(200).entity(response).build();
+
+	}
+
+	/**
+	 * This method returns the Api response for exporting the mysql database into
+	 * excel sheet
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/exporttoexcel")
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response export(Product product) throws SQLException, IOException {
+		ProductService productService = new ProductService();
+		ApiResponse response = productService.export(product);
+		return Response.status(200).entity(response).build();
+
+	}
+
+	/**
+	 * This method returns the Api response for importing the data from excel into mysql database.
+	 * 
+	 * @param product
+	 * @return response
+	 * @throws SQLException
+	 */
+	@POST
+	@Path("/load")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response load(Product product) throws SQLException, IOException {
+		ProductService productService = new ProductService();
+		ApiResponse response = productService.load(product);
 		return Response.status(200).entity(response).build();
 
 	}

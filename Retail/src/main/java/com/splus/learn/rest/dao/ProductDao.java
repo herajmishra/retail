@@ -62,7 +62,7 @@ public class ProductDao extends AbstractDao {
 	public List<Product> productShow(Product product1, Connection con) throws SQLException {
 		Statement stmt = con.createStatement();
 		String query = "select product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp "
-				+ "from products";
+				+ "from products where record_status>0";
 		List<Product> products = new ArrayList<Product>();
 		ResultSet rs = stmt.executeQuery(query);
 
@@ -94,7 +94,7 @@ public class ProductDao extends AbstractDao {
 	public int save(Product product, Connection con) throws SQLException {
 
 		PreparedStatement ps = con.prepareStatement(
-				"insert into products(product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp,created_by,created_at,lastmodified_by,lastmodified_at,record_status) values (?,?,?,?,?,?,?,?,?,?,?,?,?,1)");
+				"insert into products(product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp,created_by,created_at,record_status) values (?,?,?,?,?,?,?,?,?,?,NOW(),1)");
 
 		ps.setString(1, product.getProductCode());
 		ps.setString(2, product.getProductName());
@@ -105,6 +105,7 @@ public class ProductDao extends AbstractDao {
 		ps.setInt(7, product.getQuantityInStock());
 		ps.setDouble(8, product.getBuyPrice());
 		ps.setDouble(9, product.getMsrp());
+		ps.setString(10, product.getProductCode());
 		int rs = ps.executeUpdate();
 		return rs;
 	}
@@ -157,6 +158,44 @@ public class ProductDao extends AbstractDao {
 
 		return rs;
 
+	}
+
+	/**
+	 * This method adds the content from the arraylist to the product database
+	 * 
+	 * @param products
+	 * @param con
+	 * @return int
+	 * @throws SQLException
+	 */
+	public int load(List<Product> products, Connection con) throws SQLException {
+		String sql = "insert into products(product_code,product_name,product_line,product_scale,product_vendor,product_description,quantity_instock,buy_price,msrp,created_by,created_at,record_status) "
+				+ "values (?,?,?,?,?,?,?,?,?,?,NOW(),1)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		int count = 0, n = 0;
+		for (Product product : products) {
+			ps.setString(1, product.getProductCode());
+			ps.setString(2, product.getProductName());
+			ps.setString(3, product.getProductLine());
+			ps.setString(4, product.getProductScale());
+			ps.setString(5, product.getProductVendor());
+			ps.setString(6, product.getProductDescription());
+			ps.setInt(7, product.getQuantityInStock());
+			ps.setDouble(8, product.getBuyPrice());
+			ps.setDouble(9, product.getMsrp());
+			ps.setString(10, product.getProductCode());
+			ps.addBatch();
+			++count;
+		}
+
+		int[] rs = ps.executeBatch();
+		for (int i = 0; i < rs.length; i++) {
+			n = n + rs[i];
+		}
+		if (count == n)
+			return n;
+		else
+			return 0;
 	}
 
 }
