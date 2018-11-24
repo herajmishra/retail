@@ -12,6 +12,7 @@ public class Employee {
 	private String firstName;
 	private String extension;
 	private String email;
+	private String phone;
 	private String officeCode;
 	private int reportsTo;
 	private String jobTitle;
@@ -59,6 +60,14 @@ public class Employee {
 	 */
 	public String getFirstName() {
 		return firstName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	/**
