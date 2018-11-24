@@ -11,6 +11,7 @@ public class Customer {
 	private String contactLastName;
 	private String contactFirstName;
 	private String phone;
+	private String phone2;
 	private String addressLine1;
 	private String addressLine2;
 	private String city;
@@ -180,6 +181,14 @@ public class Customer {
 	 */
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	public String getPhone2() {
+		return phone2;
+	}
+
+	public void setPhone2(String phone2) {
+		this.phone2 = phone2;
 	}
 
 	/**
